@@ -10,14 +10,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from "@material-ui/core/Grid";
-
-
 import GridHRCLogo from "../utils/GridHRCLogo";
-
-
 import LvL1 from './LvL1Function/LvL1'
 import { Button } from '@material-ui/core';
-
 import Paging from './Paging'
 
 
@@ -62,22 +57,68 @@ export class Handler extends Component {
     }
 
 
-    gotoHomePaging = () =>{
+    // pagination handle functions start below
+    gotoHomePaging = async () =>{
         console.log("Ist page of table")
-    }
+        if(this.state.pageNo>1)
+        {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+            })
+                .then((response) => {
+                    this.setState({
+                        seen: true,
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize
+                    })})}
+        }
 
-    goOneBackPaging = () =>{
-        console.log("one page back")
+    goOneBackPaging = async () =>{
+        console.log("one page back",this.state.pageNo)
+        if(this.state.pageNo-1>0){
+                await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo-1), {
+                })
+                    .then((response) => {
+                        this.setState({
+                            seen: true,
+                            rows: response.data.data,
+                            pageNo: response.data.pageNo,
+                            totalPage: response.data.totalSize
+                        })})
+        }
+
     }
    
-    goOnNextPaging = () => {
-        console.log("on next back")
+    goOnNextPaging = async () => {
+        console.log("on next page",this.state.pageNo)
+        if(this.state.pageNo+1<=this.state.totalPage){
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo+1), {
+            })
+                .then((response) => {
+                    this.setState({
+                        seen: true,
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize
+                    })})
+    }
     }
 
-    gotoLastPage = () => {
+    gotoLastPage = async () => {
         console.log("last page of table")
+        if(this.state.pageNo<this.state.totalPage && this.state.totalPage>1){
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + this.state.totalPage, {
+            })
+                .then((response) => {
+                    this.setState({
+                        seen: true,
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize
+                    })})
+        }
     }
-   
+   // pagination handle functions end above
    
    
     renderSwitch(param) {
@@ -99,12 +140,7 @@ export class Handler extends Component {
     }
 
 
-
-
-
     render() {
-
-
         const { classes } = this.props
         if (!this.state.seen) {
             return (
@@ -115,15 +151,13 @@ export class Handler extends Component {
             return (
                 <div>
                     <GridHRCLogo />
-
                     <div
                         style={{
                             border: "2px solid",
                             padding: "15px",
                             boxShadow: "20px 20px 50px 15px grey",
                             height: "100%"
-                        }}
-                    >
+                        }}>
                         {this.renderSwitch(this.state.lvl)}
                         <Grid
                             container
@@ -134,8 +168,7 @@ export class Handler extends Component {
                             }}
                             direction="row"
                             spacing={1}
-                            alignItems="flex-start"
-                        >
+                            alignItems="flex-start">
                             <Grid item xs={12} />
                             <Grid item xs={12} />
                             <div
@@ -146,8 +179,7 @@ export class Handler extends Component {
                                     padding: "15px",
                                     height: "100%",
                                     width: "100%"
-                                }}
-                            >
+                                }}>
                                 <TableContainer component={Paper}>
                                     <Table
                                         aria-label="simple table">
@@ -189,13 +221,10 @@ export class Handler extends Component {
                                 <Paging main={this}/>
                                 {/* <Button>page</Button> */}
                             </div>
-
                         </Grid>
                     </div>
                 </div>
-            )
-        }
-    }
+                )}}
 
     componentDidMount() {
         if (!this.state.seen) {
@@ -208,11 +237,5 @@ export class Handler extends Component {
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
                         totalPage: response.data.totalSize
-                    })
-                }
-                )
-        }
-    }
-}
-
+                    })})}}}
 export default Handler
