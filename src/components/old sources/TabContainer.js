@@ -42,15 +42,6 @@ if(props.search===''){
             <TableCell align="center">Notes </TableCell>
           </TableRow>
         </TableHead>
-        {/* Order_Id: 958245,
-      company_Id: 665,
-      id: 1,
-      Company_Name: "BrightStar Pvt Ltd",
-      Approval_status: "Rejected",
-      Approved_By: "David Lee",
-      Notes: "Blocked Order",
-      Order_Date: "2020-09-20 00:00:00",
-      Order_amount: "INR 7180" */}
         <TableBody>
           {props.rows.map((row) => (  
             <TableRow key={row.id}>
