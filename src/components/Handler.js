@@ -30,12 +30,22 @@ export class Handler extends Component {
             columns: [],
             seen: false,
             selectedRowID: -1,
+            search: ''
         }
     }
 
     handleEdit(props) {
         console.log("editing...................", props.val)
         console.log(this.state.rows)
+    }
+
+    handleSearch = (event) => {
+        this.setState(
+            {
+                search: event.target.value
+            });
+        
+        console.log("searching...................", this.state.search)
     }
 
     renderSwitch(param) {
@@ -121,7 +131,9 @@ export class Handler extends Component {
                                         </TableHead>
                                         <TableBody>
                                             {this.state.rows.map((row) => (
-                                                <TableRow key={row.id}>
+                                                <TableRow key={row.id}
+                                                style ={ row.id % 2? { background : "#e6f3ff" }:{ background : "white" }}
+                                                >
                                                     <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
                                                     <TableCell align="center">{row.Approved_By}</TableCell>
                                                     <TableCell align="center">{row.Order_Id}</TableCell>
