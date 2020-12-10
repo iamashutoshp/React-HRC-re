@@ -16,7 +16,9 @@ import GridHRCLogo from "../utils/GridHRCLogo";
 
 
 import LvL1 from './LvL1Function/LvL1'
+import { Button } from '@material-ui/core';
 
+import Paging from './Paging'
 
 
 export class Handler extends Component {
@@ -30,8 +32,18 @@ export class Handler extends Component {
             columns: [],
             seen: false,
             selectedRowID: -1,
-            search: ''
+            search: '',
+            pageNo: 0,
+            totalPage: 0
         }
+
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.goOnNextPaging = this.goOnNextPaging.bind(this);
+        this.goOneBackPaging = this.goOneBackPaging.bind(this);
+        this.gotoHomePaging = this.gotoHomePaging.bind(this);
+        this.gotoLastPage = this.gotoLastPage.bind(this);
+
     }
 
     handleEdit(props) {
@@ -44,10 +56,30 @@ export class Handler extends Component {
             {
                 search: event.target.value
             });
-        
+
         console.log("searching...................", this.state.search)
+        console.log("---", this.state.pageNo + " of " + this.state.totalPage)
     }
 
+
+    gotoHomePaging = () =>{
+        console.log("Ist page of table")
+    }
+
+    goOneBackPaging = () =>{
+        console.log("one page back")
+    }
+   
+    goOnNextPaging = () => {
+        console.log("on next back")
+    }
+
+    gotoLastPage = () => {
+        console.log("last page of table")
+    }
+   
+   
+   
     renderSwitch(param) {
 
         switch (param) {
@@ -65,6 +97,9 @@ export class Handler extends Component {
                 );
         }
     }
+
+
+
 
 
     render() {
@@ -117,7 +152,8 @@ export class Handler extends Component {
                                     <Table
                                         aria-label="simple table">
                                         <TableHead style={{
-                                            backgroundColor: "#d4b0f5"}}>
+                                            backgroundColor: "#d4b0f5"
+                                        }}>
                                             <TableRow>
                                                 <TableCell><b>Order Date</b></TableCell>
                                                 <TableCell align="center"><b>Approved By</b></TableCell>
@@ -132,7 +168,8 @@ export class Handler extends Component {
                                         <TableBody>
                                             {this.state.rows.map((row) => (
                                                 <TableRow key={row.id}
-                                                style ={ row.id % 2? { background : "#e6f3ff" }:{ background : "white" }}
+                                                    style={row.id % 2 ? { background: "#e6f3ff" } : { background: "white" }}
+
                                                 >
                                                     <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
                                                     <TableCell align="center">{row.Approved_By}</TableCell>
@@ -148,7 +185,11 @@ export class Handler extends Component {
 
                                     </Table>
                                 </TableContainer>
+                                <br />
+                                <Paging main={this}/>
+                                {/* <Button>page</Button> */}
                             </div>
+
                         </Grid>
                     </div>
                 </div>
@@ -164,7 +205,9 @@ export class Handler extends Component {
                     console.log("----------------------------------", response);
                     this.setState({
                         seen: true,
-                        rows: response.data.data
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize
                     })
                 }
                 )
