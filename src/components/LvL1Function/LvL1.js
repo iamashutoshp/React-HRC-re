@@ -4,9 +4,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import Paper from '@material-ui/core/Paper';
 import { InputBase, IconButton } from '@material-ui/core'
 import ColorButton from '../../utils/OrgBuuton'
-import ADD from './ADD'
 import Grid from "@material-ui/core/Grid";
 
+import ADD from './ADD'
+import EDIT from './EDIT'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,11 +76,8 @@ export default function LvL1(props) {
           <ADD />
         </Grid>
         <Grid item xs={1} sm={1}>
-          <ColorButton xs={1}
-            onClick={() => props.main.handleEdit(val)}
-          >
-            EDIT
-            </ColorButton>
+          {/* yha par edit k lia checkbox ka selected order props me pass karo */}
+            <EDIT/>
         </Grid>
 
 

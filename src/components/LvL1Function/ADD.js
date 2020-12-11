@@ -1,5 +1,6 @@
 import React from "react";
-
+import { Component } from "react";
+import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 
 import Dialog from "@material-ui/core/Dialog";
@@ -8,16 +9,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import Divider from "@material-ui/core/Divider";
 import { FormGroup, Grid, Paper, TextField } from "@material-ui/core";
-import {
-  InputLabel,
-  Input,
-  FormHelperText,
-  FormControl
-} from "@material-ui/core";
 
 import ColorButton from "../../utils/OrgBuuton";
 
 import Title from "./Title";
+import AddForm from "./AddForm";
 
 export default class ADD extends React.Component {
   constructor(props) {
@@ -25,7 +21,13 @@ export default class ADD extends React.Component {
     super(props);
     this.state = {
       open: false,
-      name: "ADD ORDER"
+      name: "ADD ORDER",
+      order_Id: 0,
+      order_Date: "",
+      customer_Name: "",
+      customer_Number: 0,
+      order_Amount: 0,
+      notes: ""
     };
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -47,42 +49,36 @@ export default class ADD extends React.Component {
     console.log("inside close : ", this.state.open);
   };
 
+  handleChange = (event, field) => {
+    this.setState({ [field]: event.target.value });
+    console.log("in Set state :", this.state);
+  };
+
   render() {
     return (
       <div>
         <ColorButton
-        //   variant="contained"
-        //   color="primary"
+          variant="contained"
+          color="primary"
           onClick={this.handleClickOpen}
         >
           ADD
         </ColorButton>
 
-        <Dialog
-          open={this.state.open}
-          keepMounted
-        //   aria-labelledby="alert-dialog-slide-title"
-        //   aria-describedby="alert-dialog-slide-description"
-        >
-          <Title main={this} />
+        <Dialog open={this.state.open} keepMounted>
+          <Paper style={{ padding: "2.5px" }}>
+            <Title main={this} />
 
-          <DialogContent>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                Pick your favorite flavor:
-                <select value={this.state.value} onChange={this.handleChange}>
-                  {" "}
-                  <option value="grapefruit">Grapefruit</option>
-                  <option value="lime">Lime</option>
-                  <option value="coconut">Coconut</option>
-                  <option value="mango">Mango</option>
-                </select>
-              </label>
-              <input type="submit" value="Submit" />
-            </form>
-          </DialogContent>
+            <AddForm main={this} />
 
-          <Button onClick={this.handleClose}>Submit</Button>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <ColorButton onClick={this.handleClose}
+              // yha par onClick wale function m data backend p verify karo
+              size="small">
+                ADD
+              </ColorButton>
+            </div>
+          </Paper>
         </Dialog>
       </div>
     );

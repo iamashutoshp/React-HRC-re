@@ -155,6 +155,7 @@ export class Handler extends Component {
     // pagination handle functions end above
 
 
+    // alloting renders case on base on level of the user
     renderSwitch(param) {
 
         switch (param) {
@@ -172,6 +173,8 @@ export class Handler extends Component {
                 );
         }
     }
+
+    // done with the cases
 
 
     render() {
