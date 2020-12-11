@@ -1,6 +1,5 @@
 
 
-/* .asd { */
     .asd{
         background: 0%;
         position:absolute;
@@ -31,7 +30,7 @@
           margin-left: 650px;
         }
       
-        h2 {
+        #signIn {
           margin-left: 0px;
           text-shadow: 2px 2px 5px rgb(31, 116, 138);
         }

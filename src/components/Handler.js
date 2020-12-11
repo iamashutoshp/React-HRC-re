@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import { CircularLoading } from '../utils/CircularLoading'
+import Checkbox from '@material-ui/core/Checkbox';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -49,11 +51,11 @@ export class Handler extends Component {
 
     // searching functionality below
     handleSearch = async (event) => {
-        
+
         console.log(event.target.value)
 
-        if(event.target.value.length>=1){
-            await axios.get('http://localhost:8080/1729197/search?s=' + event.target.value+"&pNo="+1, {
+        if (event.target.value.length >= 1) {
+            await axios.get('http://localhost:8080/1729197/search?s=' + event.target.value + "&pNo=" + 1, {
             })
                 .then((response) => {
                     this.setState({
@@ -61,9 +63,10 @@ export class Handler extends Component {
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
                         totalPage: response.data.totalSize
-                    })})
+                    })
+                })
         }
-        else{
+        else {
             axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
             })
                 .then((response) => {
@@ -73,10 +76,11 @@ export class Handler extends Component {
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
                         totalPage: response.data.totalSize
-                    })})
+                    })
+                })
         }
-        
-        
+
+
     }
     // searching functionality done above
 
@@ -84,10 +88,9 @@ export class Handler extends Component {
 
 
     // pagination handle functions start below
-    gotoHomePaging = async () =>{
+    gotoHomePaging = async () => {
         console.log("Ist page of table")
-        if(this.state.pageNo>1)
-        {
+        if (this.state.pageNo > 1) {
             await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
             })
                 .then((response) => {
@@ -96,29 +99,15 @@ export class Handler extends Component {
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
                         totalPage: response.data.totalSize
-                    })})}
-        }
-
-    goOneBackPaging = async () =>{
-        console.log("one page back",this.state.pageNo)
-        if(this.state.pageNo-1>0){
-                await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo-1), {
+                    })
                 })
-                    .then((response) => {
-                        this.setState({
-                            seen: true,
-                            rows: response.data.data,
-                            pageNo: response.data.pageNo,
-                            totalPage: response.data.totalSize
-                        })})
         }
-
     }
-   
-    goOnNextPaging = async () => {
-        console.log("on next page",this.state.pageNo)
-        if(this.state.pageNo+1<=this.state.totalPage){
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo+1), {
+
+    goOneBackPaging = async () => {
+        console.log("one page back", this.state.pageNo)
+        if (this.state.pageNo - 1 > 0) {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo - 1), {
             })
                 .then((response) => {
                     this.setState({
@@ -126,13 +115,31 @@ export class Handler extends Component {
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
                         totalPage: response.data.totalSize
-                    })})
+                    })
+                })
+        }
+
     }
+
+    goOnNextPaging = async () => {
+        console.log("on next page", this.state.pageNo)
+        if (this.state.pageNo + 1 <= this.state.totalPage) {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo + 1), {
+            })
+                .then((response) => {
+                    this.setState({
+                        seen: true,
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize
+                    })
+                })
+        }
     }
 
     gotoLastPage = async () => {
         console.log("last page of table")
-        if(this.state.pageNo<this.state.totalPage && this.state.totalPage>1){
+        if (this.state.pageNo < this.state.totalPage && this.state.totalPage > 1) {
             await axios.get('http://localhost:8080/1729197/paging?pNo=' + this.state.totalPage, {
             })
                 .then((response) => {
@@ -141,22 +148,23 @@ export class Handler extends Component {
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
                         totalPage: response.data.totalSize
-                    })})
+                    })
+                })
         }
     }
-   // pagination handle functions end above
-   
-   
+    // pagination handle functions end above
+
+
     renderSwitch(param) {
 
         switch (param) {
             case 'Level 2':
                 return (
-                    <LvL2_3 main={this}/>
+                    <LvL2_3 main={this} />
                 );
             case 'Level 3':
                 return (
-                    <LvL2_3 main={this}/>
+                    <LvL2_3 main={this} />
                 );
             default:
                 return (
@@ -213,53 +221,73 @@ export class Handler extends Component {
                                             backgroundColor: "#d4b0f5"
                                         }}>
                                             <TableRow>
-                                                <TableCell><b>Order Date</b></TableCell>
-                                                <TableCell align="center"><b>Approved By</b></TableCell>
-                                                <TableCell align="center"><b>Order ID</b></TableCell>
-                                                <TableCell align="center"><b>Compant Name</b></TableCell>
-                                                <TableCell align="center"><b>Company ID</b></TableCell>
-                                                <TableCell align="center"><b>Order Amount</b></TableCell>
-                                                <TableCell align="center"><b>Approval Status</b></TableCell>
-                                                <TableCell align="center"><b>Notes </b></TableCell>
+                                                <TableCell padding="checkbox">
+                                                    <Checkbox
+                                                        // indeterminate={numSelected > 0 && numSelected < rowCount}
+                                                        // checked={rowCount > 0 && numSelected === rowCount}
+                                                        // onChange={onSelectAllClick}
+                                                        // inputProps={{ 'aria-label': 'select all desserts' }}
+                                                    />
+                                                    </TableCell>
+                                                    <TableCell><b>Order Date</b></TableCell>
+                                                    <TableCell align="center"><b>Approved By</b></TableCell>
+                                                    <TableCell align="center"><b>Order ID</b></TableCell>
+                                                    <TableCell align="center"><b>Compant Name</b></TableCell>
+                                                    <TableCell align="center"><b>Company ID</b></TableCell>
+                                                    <TableCell align="center"><b>Order Amount</b></TableCell>
+                                                    <TableCell align="center"><b>Approval Status</b></TableCell>
+                                                    <TableCell align="center"><b>Notes </b></TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {this.state.rows.map((row) => (
-                                                <TableRow key={row.id}
-                                                    style={row.id % 2 ? { background: "#e6f3ff" } : { background: "white" }}>
-                                                    <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
-                                                    <TableCell align="center">{row.Approved_By}</TableCell>
-                                                    <TableCell align="center">{row.Order_Id}</TableCell>
-                                                    <TableCell align="center">{row.Company_Name}</TableCell>
-                                                    <TableCell align="center">{row.company_Id}</TableCell>
-                                                    <TableCell align="center">{row.Order_amount}</TableCell>
-                                                    <TableCell align="center">{row.Approval_status}</TableCell>
-                                                    <TableCell align="center">{row.Notes}</TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
+                                            <TableBody>
+                                                {this.state.rows.map((row) => (
+                                                    <TableRow key={row.id}
+                                                        style={row.id % 2 ? { background: "#e6f3ff" } : { background: "white" }}>
+                                                        <TableCell padding="checkbox">
+                                                            <Checkbox
+                                                            // checked={isItemSelected}
+                                                            // inputProps={{ 'aria-labelledby': labelId }}
+                                                            />
+                                                        </TableCell>
+                                                        <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
+                                                        <TableCell align="center">{row.Approved_By}</TableCell>
+                                                        <TableCell align="center">{row.Order_Id}</TableCell>
+                                                        <TableCell align="center">{row.Company_Name}</TableCell>
+                                                        <TableCell align="center">{row.company_Id}</TableCell>
+                                                        <TableCell align="center">{row.Order_amount}</TableCell>
+                                                        <TableCell align="center">{row.Approval_status}</TableCell>
+                                                        <TableCell align="center">{row.Notes}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
 
                                     </Table>
                                 </TableContainer>
-                                <br />
-                                <Paging main={this}/>
-                                {/* <Button>page</Button> */}
+                                    <br />
+                                    <Paging main={this} />
+                                    {/* <Button>page</Button> */}
                             </div>
                         </Grid>
                     </div>
-                </div>
-                )}}
+                    </div>
+            )
+        }
+    }
 
     componentDidMount() {
         if (!this.state.seen) {
-            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
-            })
-                .then((response) => {
-                    console.log("----------------------------------", response);
-                    this.setState({
-                        seen: true,
-                        rows: response.data.data,
-                        pageNo: response.data.pageNo,
-                        totalPage: response.data.totalSize
-                    })})}}}
+                        axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+                        })
+                            .then((response) => {
+                                console.log("----------------------------------", response);
+                                this.setState({
+                                    seen: true,
+                                    rows: response.data.data,
+                                    pageNo: response.data.pageNo,
+                                    totalPage: response.data.totalSize
+                                })
+                            })
+                    }
+    }
+}
 export default Handler
