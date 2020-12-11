@@ -15,6 +15,7 @@ import LvL1 from './LvL1Function/LvL1'
 import { Button } from '@material-ui/core';
 import Paging from './Paging'
 
+import LvL2_3 from './LvL2_3Function/LvL2_3'
 
 export class Handler extends Component {
 
@@ -151,11 +152,11 @@ export class Handler extends Component {
         switch (param) {
             case 'Level 2':
                 return (
-                    <div>lvl2</div>
+                    <LvL2_3 main={this}/>
                 );
             case 'Level 3':
                 return (
-                    <div>lvl3</div>
+                    <LvL2_3 main={this}/>
                 );
             default:
                 return (
@@ -225,9 +226,7 @@ export class Handler extends Component {
                                         <TableBody>
                                             {this.state.rows.map((row) => (
                                                 <TableRow key={row.id}
-                                                    style={row.id % 2 ? { background: "#e6f3ff" } : { background: "white" }}
-
-                                                >
+                                                    style={row.id % 2 ? { background: "#e6f3ff" } : { background: "white" }}>
                                                     <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
                                                     <TableCell align="center">{row.Approved_By}</TableCell>
                                                     <TableCell align="center">{row.Order_Id}</TableCell>
