@@ -46,15 +46,39 @@ export class Handler extends Component {
         console.log(this.state.rows)
     }
 
-    handleSearch = (event) => {
-        this.setState(
-            {
-                search: event.target.value
-            });
+    handleSearch = async (event) => {
+        
+        console.log(event.target.value)
 
-        console.log("searching...................", this.state.search)
-        console.log("---", this.state.pageNo + " of " + this.state.totalPage)
+        if(event.target.value.length>=1){
+            await axios.get('http://localhost:8080/1729197/search?s=' + event.target.value+"&pNo="+1, {
+            })
+                .then((response) => {
+                    this.setState({
+                        seen: true,
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize
+                    })})
+        }
+        else{
+            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+            })
+                .then((response) => {
+                    console.log("----------------------------------", response);
+                    this.setState({
+                        seen: true,
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize
+                    })})
+        }
+        
+        
     }
+
+
+
 
 
     // pagination handle functions start below
