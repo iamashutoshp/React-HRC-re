@@ -46,6 +46,7 @@ export class Handler extends Component {
         console.log(this.state.rows)
     }
 
+    // searching functionality below
     handleSearch = async (event) => {
         
         console.log(event.target.value)
@@ -76,7 +77,7 @@ export class Handler extends Component {
         
         
     }
-
+    // searching functionality done above
 
 
 
