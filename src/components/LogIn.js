@@ -39,6 +39,7 @@ class logIn extends Component {
 
 
     handleSubmit = async (event) => {
+
         alert(this.state.userName + "   =>    " + this.state.passWord);
         if (!(this.state.userName === "" || this.state.passWord === "")) {
             await axios.post('http://localhost:8080/1729197/logus?user=' + this.state.userName + '&' + 'password=' + this.state.passWord, {
@@ -72,7 +73,7 @@ class logIn extends Component {
         }
 
 
-        event.preventDefault();
+        // event.preventDefault();
     }
 
 
