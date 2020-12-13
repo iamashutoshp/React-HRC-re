@@ -1,6 +1,7 @@
 import React from "react";
 import DialogContent from "@material-ui/core/DialogContent";
 import { Grid, TextField } from "@material-ui/core";
+import ColorButton from '../../utils/OrgBuuton'
 
 function EditForm(props) {
 
@@ -134,8 +135,7 @@ function EditForm(props) {
           </Grid>
           {/* ------------------------- */}
           <Grid item xs={12}></Grid>
-          {/* ------------------------- Approved by ko auto populate karna hai props le kar aao 
-          ya $ k hisab se condition hardcode kar do*/}
+          {/* ------------------------- Approved by auto populated */}
           <Grid
             container
             spacing={2}
@@ -176,7 +176,15 @@ function EditForm(props) {
           {/* ------------------------- */}
 
           <Grid item xs={12}></Grid>
-        </Grid>
+          </Grid>
+          <br/>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+              <ColorButton onClick={props.main.handleClose}
+              size="small">
+                Submit
+              </ColorButton>
+            </div>
+        
       </form>
     </DialogContent>
   );

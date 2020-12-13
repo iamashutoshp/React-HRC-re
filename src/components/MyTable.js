@@ -42,14 +42,18 @@ function MyTable(props) {
                         {props.handler.state.rows.map((row) => (
 
                             <TableRow key={row.id}
-                                style={row.id % 2 ? { background: "#e6f3ff" } : { background: "white" }}
-                            >
+                                style={
+                                    
+                                    !(props.handler.state.clickedRow == row.id)?
+                                    (row.id % 2 ? { background: "#e6f3ff" } : { background: "#f2f2f2" }):
+                                    { background: "#a4e1eb" }
+                                }>
 
                                 <TableCell padding="checkbox">
                                     <Checkbox
                                         onClick={() => change(props.handler, row.id,row)}
                                         checked={props.handler.state.clickedRow == row.id ? true : false} />
-
+                                        
                                 </TableCell>
                                 <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
                                 <TableCell align="center">{row.Approved_By}</TableCell>

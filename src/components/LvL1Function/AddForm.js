@@ -223,9 +223,9 @@ function AddForm(props) {
 
             <Grid item xs={12}></Grid>
           </Grid>
+         
           <div style={{ display: "flex", justifyContent: "center" }} >
               <ColorButton 
-              // yha par onClick wale function m data backend p verify karo
               onClick={props.main.AddhandleSubmit}
               size="small">
                 ADD

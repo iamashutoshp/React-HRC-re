@@ -90,14 +90,6 @@ export default class EDIT extends React.Component {
             // row={this.props.row[1]} 
             row={this.state.rowData} 
             />
-
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <ColorButton onClick={this.handleClose}
-              // yha par onClick wale function m data backend p verify karo
-              size="small">
-                Submit
-              </ColorButton>
-            </div>
           </Paper>
         </Dialog>
       </div>
