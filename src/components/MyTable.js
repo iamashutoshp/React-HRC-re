@@ -8,12 +8,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Grid from "@material-ui/core/Grid";
 
 
 
-const change = (props,id) =>{
-    props.getCheckboxRow(id)
+
+const change = (props, id, row) => {
+    props.getCheckboxRow(id,row)
 }
 function MyTable(props) {
     return (
@@ -47,14 +47,8 @@ function MyTable(props) {
 
                                 <TableCell padding="checkbox">
                                     <Checkbox
-                                        // onClick={() => props.handler.getCheckboxRow(row)}
-                                        // onChange={()=>this.getCheckboxRow(row)}
-                                        onClick={()=> change(props.handler,row.id)}
-                                        checked={props.handler.state.clickedRow == row.id ? true : false}
-
-                                    // checked={isItemSelected}
-                                    // inputProps={{ 'aria-labelledby': labelId }}
-                                    />
+                                        onClick={() => change(props.handler, row.id,row)}
+                                        checked={props.handler.state.clickedRow == row.id ? true : false} />
                                 </TableCell>
                                 <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
                                 <TableCell align="center">{row.Approved_By}</TableCell>

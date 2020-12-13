@@ -34,9 +34,11 @@ export default class EDIT extends React.Component {
 
 
   handleClickOpen = (event) => {
+    if(this.props.row[0]==0){
     this.setState({
       open: true
     });
+    }
 
     console.log("inside open : ", this.state.open);
   };
@@ -55,6 +57,8 @@ export default class EDIT extends React.Component {
   };
 
   render() {
+
+    console.log("inside Edit.js",this.props.row)
     return (
       <div>
         <ColorButton

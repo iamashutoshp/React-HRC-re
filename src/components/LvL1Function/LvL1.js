@@ -56,6 +56,9 @@ export default function LvL1(props) {
 
   const classes = useStyles();
 
+  const row = [props.isClicked,props.rowData]
+
+  console.log("inside Lvl1.js",row)
   const val = ["hii", "hello", "bye"]
   return (
     <div>
@@ -77,7 +80,7 @@ export default function LvL1(props) {
         </Grid>
         <Grid item xs={1} sm={1}>
           {/* yha par edit k lia checkbox ka selected order props me pass karo */}
-            <EDIT/>
+            <EDIT row={row}/>
         </Grid>
 
 
