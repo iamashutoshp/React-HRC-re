@@ -226,7 +226,7 @@ function AddForm(props) {
           <div style={{ display: "flex", justifyContent: "center" }} >
               <ColorButton 
               // yha par onClick wale function m data backend p verify karo
-              onClick={props.main.handleSubmit}
+              onClick={props.main.AddhandleSubmit}
               size="small">
                 ADD
               </ColorButton>

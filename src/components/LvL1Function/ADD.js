@@ -14,8 +14,8 @@ import ColorButton from "../../utils/OrgBuuton";
 
 import Title from "./Title";
 import AddForm from "./AddForm";
-
 export default class ADD extends React.Component {
+  
   constructor(props) {
     console.log("Add constructor");
     super(props);
@@ -32,7 +32,8 @@ export default class ADD extends React.Component {
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.AddhandleSubmit = this.AddhandleSubmit.bind(this);
+    
   }
 
   handleClickOpen = (event) => {
@@ -57,7 +58,8 @@ export default class ADD extends React.Component {
     console.log("in Set state :", this.state);
   };
 
-  handleSubmit = async () =>{
+  // submit Add form data
+  AddhandleSubmit = async () =>{
     const send = {
         orderID: this.state.order_Id,
         orderDate: this.state.order_Date,
@@ -75,29 +77,47 @@ export default class ADD extends React.Component {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }
+      let res=""
+      let status = false
       await axios.post('http://localhost:8080/1729197/add',
       qs.stringify(send), config)
       .then((response) => {
         console.log(response);
-        this.setState({
-          order_Id: 0,
-          order_Date: "",
-          customer_Name: "",
-          customer_Number: 0,
-          order_Amount: 0,
-          notes: ""
-        })
+        
+        if(response.data===true){
+          res = " Order Data added..."
+          alert(res)
+        }
+        else{
+          res = "An Order already exists with order ID : " +send.orderID +"\n or Invalid Form fields"
+          alert(res)
+        }
+
+        
+        //jb dialog close karke fir on karo ge tb agar commnet out hataya setstate ka to fir data field bhara rhega par values 0 pass hongi 
+        // this.setState({
+        //   order_Id: 0,
+        //   order_Date: "",
+        //   customer_Name: "",
+        //   customer_Number: 0,
+        //   order_Amount: 0,
+        //   notes: ""
+        // })
       }, (error) => {
         console.log(error);
       });
 
-
+      
       this.handleClose();
       console.log("add data :" , send)
 
       
 
   };
+  // add from submission done abve
+
+
+  
 
   render() {
     return (
