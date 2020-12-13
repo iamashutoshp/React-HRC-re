@@ -49,6 +49,7 @@ function MyTable(props) {
                                     <Checkbox
                                         onClick={() => change(props.handler, row.id,row)}
                                         checked={props.handler.state.clickedRow == row.id ? true : false} />
+
                                 </TableCell>
                                 <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
                                 <TableCell align="center">{row.Approved_By}</TableCell>

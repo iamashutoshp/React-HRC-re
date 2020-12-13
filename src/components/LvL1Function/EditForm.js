@@ -3,6 +3,21 @@ import DialogContent from "@material-ui/core/DialogContent";
 import { Grid, TextField } from "@material-ui/core";
 
 function EditForm(props) {
+
+  console.log("inside EditForm ", props.main.state)
+
+  let approvedName = ''
+  let amt = props.main.state.order_Amount
+
+  if (amt <= 10000)
+    approvedName = 'David Lee'
+  else if (amt > 10000 && amt < 50000)
+    approvedName = 'Laura Smith'
+  else
+    approvedName = 'Matthew Vance'
+
+  // console.log("inside EditForm oId: ",props.main.state.order_Id)
+  // console.log("inside EditForm amt: ",props.main.state.order_Amount)
   return (
     <DialogContent>
       <form onSubmit={props.main.handleSubmit}>
@@ -25,15 +40,22 @@ function EditForm(props) {
                 height: "100%"
               }}
             >
-              {"Order ID  "}
+              {"Order ID       "}
             </Grid>
 
             <Grid item style={{ flexGrow: "4" }}>
               <TextField
+                inputProps={{
+                  readOnly: true,
+                  disabled: true,
+                }}
+                // value={props.main.state.order_Id}
+                placeholder={props.main.state.order_Id}
                 fullWidth
                 color="secondary"
                 name="order_Id"
                 type="number"
+
                 onChange={(event) => props.main.handleChange(event, "order_Id")}
               />
             </Grid>
@@ -67,6 +89,8 @@ function EditForm(props) {
                 color="secondary"
                 name="order_Amount"
                 type="number"
+                // value={props.row.Order_amount}
+                value={props.main.state.order_Amount}
                 onChange={(event) =>
                   props.main.handleChange(event, "order_Amount")
                 }
@@ -99,6 +123,7 @@ function EditForm(props) {
             <Grid item style={{ flexGrow: "4" }}>
               <TextField
                 fullWidth
+                value={props.main.state.notes}
                 color="secondary"
                 name="notes"
                 type="text"
@@ -133,6 +158,13 @@ function EditForm(props) {
             <Grid item style={{ flexGrow: "4" }}>
               <TextField
                 fullWidth
+                inputProps={{
+                  readOnly: true,
+                  disabled: true,
+                }}
+                // value={props.main.state.approved_By}
+                // placeholder={props.main.state.approved_By}
+                placeholder={approvedName}
                 color="secondary"
                 name="approved_By"
                 type="text"

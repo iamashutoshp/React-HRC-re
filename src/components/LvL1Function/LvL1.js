@@ -58,6 +58,9 @@ export default function LvL1(props) {
 
   const row = [props.isClicked,props.rowData]
 
+  console.log("inside LvL1.js checking props ",props)
+  console.log("inside LvL1.js checking custom row ",row)
+
   console.log("inside Lvl1.js",row)
   const val = ["hii", "hello", "bye"]
   return (

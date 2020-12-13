@@ -17,15 +17,19 @@ import EditForm from "./EditForm";
 
 export default class EDIT extends React.Component {
   constructor(props) {
-    console.log("Add constructor");
+    
     super(props);
+    // console.log("Edit constructor props check : ",this.props.row[1]);
     this.state = {
       open: false,
       name: "EDIT ORDER",
+      
       order_Id: 0,
       order_Amount: 0,
-      notes: "",
-      approved_By: ''
+      notes: '',
+      approved_By: '',
+
+      rowData: this.props.row[1]
     };
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -34,9 +38,16 @@ export default class EDIT extends React.Component {
 
 
   handleClickOpen = (event) => {
+    console.log("inside Edit.js checking rows props:",this.props.row[1])
     if(this.props.row[0]!=-1){
     this.setState({
-      open: true
+      order_Id: this.props.row[1].Order_Id,
+      order_Amount: this.props.row[1].Order_amount,
+      notes: this.props.row[1].Notes,
+      approved_By: this.props.row[1].Approved_By,
+      open: true,
+      
+
     });
     }
 
@@ -44,6 +55,7 @@ export default class EDIT extends React.Component {
   };
 
   handleClose = () => {
+    
     console.log("inside close");
     this.setState({
       open: false
@@ -52,13 +64,14 @@ export default class EDIT extends React.Component {
   };
 
   handleChange = (event, field) => {
-    this.setState({ [field]: event.target.value });
+    this.setState({ 
+      [field]: event.target.value,
+     });
     console.log("in Set state :", this.state);
   };
 
   render() {
 
-    console.log("inside Edit.js",this.props.row)
     return (
       <div>
         <ColorButton
@@ -73,7 +86,10 @@ export default class EDIT extends React.Component {
           <Paper style={{ padding: "2.5px" }}>
             <Title main={this} />
 
-            <EditForm main={this} />
+            <EditForm main={this} 
+            // row={this.props.row[1]} 
+            row={this.state.rowData} 
+            />
 
             <div style={{ display: "flex", justifyContent: "center" }}>
               <ColorButton onClick={this.handleClose}

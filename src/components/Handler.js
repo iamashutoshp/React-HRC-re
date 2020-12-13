@@ -67,7 +67,9 @@ export class Handler extends Component {
                         seen: true,
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
-                        totalPage: response.data.totalSize
+                        totalPage: response.data.totalSize,
+                        clickedRow: -1,
+                        selectedRowData: []
                     })
                 })
         }
@@ -103,7 +105,9 @@ export class Handler extends Component {
                         seen: true,
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
-                        totalPage: response.data.totalSize
+                        totalPage: response.data.totalSize,
+                        clickedRow: -1,
+                        selectedRowData: []
                     })
                 })
         }
@@ -119,7 +123,9 @@ export class Handler extends Component {
                         seen: true,
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
-                        totalPage: response.data.totalSize
+                        totalPage: response.data.totalSize,
+                        clickedRow: -1,
+                        selectedRowData: []
                     })
                 })
         }
@@ -136,7 +142,9 @@ export class Handler extends Component {
                         seen: true,
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
-                        totalPage: response.data.totalSize
+                        totalPage: response.data.totalSize,
+                        clickedRow: -1,
+                        selectedRowData: []
                     })
                 })
         }
@@ -152,7 +160,9 @@ export class Handler extends Component {
                         seen: true,
                         rows: response.data.data,
                         pageNo: response.data.pageNo,
-                        totalPage: response.data.totalSize
+                        totalPage: response.data.totalSize,
+                        clickedRow: -1,
+                        selectedRowData: []
                     })
                 })
         }
@@ -161,16 +171,17 @@ export class Handler extends Component {
 
 
     // alloting renders case on base on level of the user
-    renderSwitch(lvl,clickedStatus,rowData) {
+    renderSwitch(lvl, clickedStatus, rowData) {
 
         switch (lvl) {
             case 'Level 1':
+                console.log("inside Handler.js checking rowData : ", rowData)
                 return (
-                    <LvL1 main={this} isClicked={clickedStatus} rowData={rowData}/>
+                    <LvL1 main={this} isClicked={clickedStatus} rowData={rowData} />
                 );
             default:
                 return (
-                    <LvL2_3 main={this} isClicked={clickedStatus} rowData={rowData}/>  
+                    <LvL2_3 main={this} isClicked={clickedStatus} rowData={rowData} />
                 );
         }
     }
@@ -197,7 +208,7 @@ export class Handler extends Component {
                             height: "100%"
                         }}>
 
-                        {this.renderSwitch(this.state.lvl,this.state.clickedRow,this.state.selectedRowData)}
+                        {this.renderSwitch(this.state.lvl, this.state.clickedRow, this.state.selectedRowData)}
 
                         <Grid
                             container
@@ -220,53 +231,54 @@ export class Handler extends Component {
                                     height: "100%",
                                     width: "100%"
                                 }}>
-                                    <MyTable handler={this}/>
-                                    <br />
-                                    <Paging main={this} />
-                                    {/* <Button>page</Button> */}
+                                <MyTable handler={this} />
+                                <br />
+                                <Paging main={this} />
+                                {/* <Button>page</Button> */}
                             </div>
                         </Grid>
                     </div>
-                    </div>
+                </div>
             )
         }
     }
 
 
-    getCheckboxRow = (id,selectedRow) => {
+    getCheckboxRow = (id, selectedRow) => {
         console.log("inside checkbox  ")
         // console.log(id)
-        if(this.state.clickedRow==-1){
-        this.setState({
-            clickedRow: id,
-            selectedRowData: selectedRow
-        })
-        }   
-        else{
+        if (this.state.clickedRow == -1) {
+            this.setState({
+                clickedRow: id,
+                selectedRowData: selectedRow
+            })
+        }
+        else {
             this.setState({
                 clickedRow: -1,
                 selectedRowData: []
-            })  
+            })
         }
-        
+
 
         // console.log(this.state.clickedRow,this.state.selectedRowData)
     }
 
+
     componentDidMount() {
         if (!this.state.seen) {
-                        axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
-                        })
-                            .then((response) => {
-                                console.log("----------------------------------", response);
-                                this.setState({
-                                    seen: true,
-                                    rows: response.data.data,
-                                    pageNo: response.data.pageNo,
-                                    totalPage: response.data.totalSize
-                                })
-                            })
-                    }
+            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+            })
+                .then((response) => {
+                    console.log("----------------------------------", response);
+                    this.setState({
+                        seen: true,
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize
+                    })
+                })
+        }
     }
 }
 export default Handler
