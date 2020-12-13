@@ -72,6 +72,8 @@ export default function LvL1(props) {
         {/* goto ADD.js file in handle level1 */}
         <Grid item xs={1} sm={1}>
           <ColorButton xs={1}
+          // yha par nya function bana kar bas row id and data ko as a props pass kar do fir us function m level k hisab se
+          // approval ya rejection k lia post request bhej do
             onClick={() => props.main.handleEdit(val)}
           >
             Approve

@@ -1,3 +1,4 @@
+// file Handling Table page after Login
 import React, { Component } from 'react'
 import axios from 'axios'
 
@@ -16,7 +17,7 @@ import GridHRCLogo from "../utils/GridHRCLogo";
 import LvL1 from './LvL1Function/LvL1'
 import { Button } from '@material-ui/core';
 import Paging from './Paging'
-
+import MyTable from './MyTable'
 import LvL2_3 from './LvL2_3Function/LvL2_3'
 
 export class Handler extends Component {
@@ -32,7 +33,9 @@ export class Handler extends Component {
             selectedRowID: -1,
             search: '',
             pageNo: 0,
-            totalPage: 0
+            totalPage: 0,
+
+            clickedRow: -1,
         }
 
         this.handleEdit = this.handleEdit.bind(this);
@@ -41,12 +44,13 @@ export class Handler extends Component {
         this.goOneBackPaging = this.goOneBackPaging.bind(this);
         this.gotoHomePaging = this.gotoHomePaging.bind(this);
         this.gotoLastPage = this.gotoLastPage.bind(this);
-
+        this.getCheckboxRow = this.getCheckboxRow.bind(this);
     }
 
     handleEdit(props) {
-        console.log("editing...................", props.val)
-        console.log(this.state.rows)
+        // this function is just for sample checking of Level2_3 approve rejection
+        // console.log("editing...................", props.val)
+        // console.log(this.state.rows)
     }
 
     // searching functionality below
@@ -159,17 +163,13 @@ export class Handler extends Component {
     renderSwitch(param) {
 
         switch (param) {
-            case 'Level 2':
+            case 'Level 1':
                 return (
-                    <LvL2_3 main={this} />
-                );
-            case 'Level 3':
-                return (
-                    <LvL2_3 main={this} />
+                    <LvL1 main={this} />
                 );
             default:
                 return (
-                    <LvL1 main={this} />
+                    <LvL2_3 main={this} />  
                 );
         }
     }
@@ -195,7 +195,9 @@ export class Handler extends Component {
                             boxShadow: "20px 20px 50px 15px grey",
                             height: "100%"
                         }}>
+
                         {this.renderSwitch(this.state.lvl)}
+
                         <Grid
                             container
                             style={{
@@ -217,55 +219,7 @@ export class Handler extends Component {
                                     height: "100%",
                                     width: "100%"
                                 }}>
-                                <TableContainer component={Paper}>
-                                    <Table
-                                        aria-label="simple table">
-                                        <TableHead style={{
-                                            backgroundColor: "#d4b0f5"
-                                        }}>
-                                            <TableRow>
-                                                <TableCell padding="checkbox">
-                                                    <Checkbox
-                                                        // indeterminate={numSelected > 0 && numSelected < rowCount}
-                                                        // checked={rowCount > 0 && numSelected === rowCount}
-                                                        // onChange={onSelectAllClick}
-                                                        // inputProps={{ 'aria-label': 'select all desserts' }}
-                                                    />
-                                                    </TableCell>
-                                                    <TableCell><b>Order Date</b></TableCell>
-                                                    <TableCell align="center"><b>Approved By</b></TableCell>
-                                                    <TableCell align="center"><b>Order ID</b></TableCell>
-                                                    <TableCell align="center"><b>Compant Name</b></TableCell>
-                                                    <TableCell align="center"><b>Company ID</b></TableCell>
-                                                    <TableCell align="center"><b>Order Amount</b></TableCell>
-                                                    <TableCell align="center"><b>Approval Status</b></TableCell>
-                                                    <TableCell align="center"><b>Notes </b></TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                            <TableBody>
-                                                {this.state.rows.map((row) => (
-                                                    <TableRow key={row.id}
-                                                        style={row.id % 2 ? { background: "#e6f3ff" } : { background: "white" }}>
-                                                        <TableCell padding="checkbox">
-                                                            <Checkbox
-                                                            // checked={isItemSelected}
-                                                            // inputProps={{ 'aria-labelledby': labelId }}
-                                                            />
-                                                        </TableCell>
-                                                        <TableCell component="th" scope="row">{row.Order_Date}</TableCell>
-                                                        <TableCell align="center">{row.Approved_By}</TableCell>
-                                                        <TableCell align="center">{row.Order_Id}</TableCell>
-                                                        <TableCell align="center">{row.Company_Name}</TableCell>
-                                                        <TableCell align="center">{row.company_Id}</TableCell>
-                                                        <TableCell align="center">{row.Order_amount}</TableCell>
-                                                        <TableCell align="center">{row.Approval_status}</TableCell>
-                                                        <TableCell align="center">{row.Notes}</TableCell>
-                                                    </TableRow>
-                                                ))}
-                                            </TableBody>
-
-                                    </Table>
-                                </TableContainer>
+                                    <MyTable handler={this}/>
                                     <br />
                                     <Paging main={this} />
                                     {/* <Button>page</Button> */}
@@ -275,6 +229,26 @@ export class Handler extends Component {
                     </div>
             )
         }
+    }
+
+
+    getCheckboxRow = (id) => {
+        console.log("inside checkbox  ")
+        console.log(id)
+        // let val = this.state.clickedRow
+        if(this.state.clickedRow==-1){
+        this.setState({
+            clickedRow: id
+        })
+        }   
+        else{
+            this.setState({
+                clickedRow: -1
+            })  
+        }
+        
+
+        
     }
 
     componentDidMount() {

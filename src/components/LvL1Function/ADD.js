@@ -89,7 +89,7 @@ export default class ADD extends React.Component {
           alert(res)
         }
         else{
-          res = "An Order already exists with order ID : " +send.orderID +"\n or Invalid Form fields"
+          res = "Order ID already exists or \nInComplete Form fields"
           alert(res)
         }
 
