@@ -34,7 +34,7 @@ export default class EDIT extends React.Component {
 
 
   handleClickOpen = (event) => {
-    if(this.props.row[0]==0){
+    if(this.props.row[0]!=-1){
     this.setState({
       open: true
     });
