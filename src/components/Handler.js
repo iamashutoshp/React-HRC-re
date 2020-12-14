@@ -46,6 +46,7 @@ export class Handler extends Component {
         this.gotoHomePaging = this.gotoHomePaging.bind(this);
         this.gotoLastPage = this.gotoLastPage.bind(this);
         this.getCheckboxRow = this.getCheckboxRow.bind(this);
+        this.handlerSetState = this.handlerSetState.bind(this);
     }
 
     handleEdit(props) {
@@ -92,7 +93,23 @@ export class Handler extends Component {
     // searching functionality done above
 
 
+    handlerSetState = async () => {
+        await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+            })
+                .then((response) => {
+                    console.log("----------------------------------", response);
+                    this.setState({
+                        seen: true,
+                        rows: response.data.data,
+                        pageNo: response.data.pageNo,
+                        totalPage: response.data.totalSize,
+                        search: '',
+                        clickedRow: -1
+                    })
+                })
+                console.log("in handlerSetState inside handler.js checking new row recived ",this.state.rows)
 
+    }
 
     // pagination handle functions start below
     gotoHomePaging = async () => {

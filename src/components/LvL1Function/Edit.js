@@ -11,7 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import { FormGroup, Grid, Paper, TextField } from "@material-ui/core";
 
 import ColorButton from "../../utils/OrgBuuton";
-
+import axios from 'axios'
 import Title from "./Title";
 import EditForm from "./EditForm";
 
@@ -33,6 +33,8 @@ export default class EDIT extends React.Component {
     };
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleEditSubmit = this.handleEditSubmit.bind(this);
+    this.handleApprovedByChange = this.handleApprovedByChange.bind(this);
   }
 
 
@@ -70,6 +72,46 @@ export default class EDIT extends React.Component {
     console.log("in Set state :", this.state);
   };
 
+  handleApprovedByChange = (props) => {
+    this.setState({
+      approved_By : props
+    })
+  }
+
+  handleEditSubmit = async (approvedName) =>{
+    const send = {
+      order_Id: this.state.order_Id,
+      order_Amount: this.state.order_Amount,
+      notes: this.state.notes,
+      // approved_By: this.state.approved_By,
+      approved_By: approvedName
+      }
+
+      // making post request for Addform verification
+      const qs = require('querystring')
+      
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+      let res=""
+      let status = false
+      await axios.post('http://localhost:8080/1729197/edit',
+      qs.stringify(send), config)
+      .then((response) => {
+        
+        console.log(response.data)
+        this.props.handlerFunction.handlerSetState()
+
+      }, (error) => {
+        console.log(error);
+      });
+
+      console.log(this.state)
+      this.handleClose()
+  }
+
   render() {
 
     return (
@@ -87,6 +129,7 @@ export default class EDIT extends React.Component {
             <Title main={this} />
 
             <EditForm main={this} 
+            // handlerFunction={this.props.handlerFunction}
             // row={this.props.row[1]} 
             row={this.state.rowData} 
             />

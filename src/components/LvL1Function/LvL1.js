@@ -79,11 +79,11 @@ export default function LvL1(props) {
       >
         {/* goto ADD.js file in handle level1 */}
         <Grid item xs={1} sm={1}>
-          <ADD />
+          <ADD handlerFunction={props.main}/>
         </Grid>
         <Grid item xs={1} sm={1}>
           {/* yha par edit k lia checkbox ka selected order props me pass karo */}
-            <EDIT row={row}/>
+            <EDIT row={row} handlerFunction={props.main}/>
         </Grid>
 
 

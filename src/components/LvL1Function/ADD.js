@@ -87,6 +87,7 @@ export default class ADD extends React.Component {
         if(response.data===true){
           res = " Order Data added..."
           alert(res)
+          this.props.handlerFunction.handlerSetState()
         }
         else{
           res = "Order ID already exists or \nInComplete Form fields"

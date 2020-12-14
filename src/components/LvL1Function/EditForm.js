@@ -165,6 +165,7 @@ function EditForm(props) {
                 // value={props.main.state.approved_By}
                 // placeholder={props.main.state.approved_By}
                 placeholder={approvedName}
+                
                 color="secondary"
                 name="approved_By"
                 type="text"
@@ -179,7 +180,7 @@ function EditForm(props) {
           </Grid>
           <br/>
           <div style={{ display: "flex", justifyContent: "center" }}>
-              <ColorButton onClick={props.main.handleClose}
+              <ColorButton onClick={()=>props.main.handleEditSubmit(approvedName)}
               size="small">
                 Submit
               </ColorButton>
