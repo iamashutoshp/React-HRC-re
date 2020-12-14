@@ -54,6 +54,9 @@ export default function LvL1(props) {
 
   const classes = useStyles();
 
+  const orderId = props.rowData.Order_Id
+  const level = props.level
+
   const val = ["hii", "hello", "bye"]
   return (
     <div>
@@ -74,14 +77,14 @@ export default function LvL1(props) {
           <ColorButton xs={1}
           // yha par nya function bana kar bas row id and data ko as a props pass kar do fir us function m level k hisab se
           // approval ya rejection k lia post request bhej do
-            onClick={() => props.main.handleEdit(val)}
+            onClick={() => props.handler.handleApprove(props.isClicked,orderId,level)}
           >
             Approve
             </ColorButton>
         </Grid>
         <Grid item xs={1} sm={1}>
           <ColorButton xs={1}
-            onClick={() => props.main.handleEdit(val)}
+            onClick={() => props.handler.handleReject(props.isClicked,orderId,level)}
           >
             Reject
             </ColorButton>
@@ -109,7 +112,7 @@ export default function LvL1(props) {
                 e.preventDefault();
             }
             }}
-            onChange={props.main.handleSearch}
+            onChange={props.handler.handleSearch}
             classes={{
               input: classes.inputInput,
             }}

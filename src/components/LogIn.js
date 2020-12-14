@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, FormGroup, Grid, TextField } from '@material-ui/core'
+import { Button, FormGroup, TextField } from '@material-ui/core'
 import axios from 'axios'
 
 import './login.css'
@@ -45,7 +45,8 @@ class logIn extends Component {
             await axios.post('http://localhost:8080/1729197/logus?user=' + this.state.userName + '&' + 'password=' + this.state.passWord, {
              })
                 .then((response) => {
-                    console.log("in response :");
+                    console.log("in response :",response);
+                    
                     console.log(response.data);
                     console.log("user status : ", response.data);
                     if (response.data != '') {

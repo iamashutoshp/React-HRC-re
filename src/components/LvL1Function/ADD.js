@@ -1,13 +1,6 @@
 import React from "react";
-import { Component } from "react";
-import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
 import axios from 'axios'
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import Divider from "@material-ui/core/Divider";
 import { FormGroup, Grid, Paper, TextField } from "@material-ui/core";
 
 import ColorButton from "../../utils/OrgBuuton";

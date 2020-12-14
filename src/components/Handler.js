@@ -3,19 +3,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import { CircularLoading } from '../utils/CircularLoading'
-import Checkbox from '@material-ui/core/Checkbox';
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Grid from "@material-ui/core/Grid";
 import GridHRCLogo from "../utils/GridHRCLogo";
 import LvL1 from './LvL1Function/LvL1'
-import { Button } from '@material-ui/core';
 import Paging from './Paging'
 import MyTable from './MyTable'
 import LvL2_3 from './LvL2_3Function/LvL2_3'
@@ -39,7 +29,7 @@ export class Handler extends Component {
             selectedRowData: []
         }
 
-        this.handleEdit = this.handleEdit.bind(this);
+        this.handleApprove = this.handleApprove.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.goOnNextPaging = this.goOnNextPaging.bind(this);
         this.goOneBackPaging = this.goOneBackPaging.bind(this);
@@ -47,14 +37,36 @@ export class Handler extends Component {
         this.gotoLastPage = this.gotoLastPage.bind(this);
         this.getCheckboxRow = this.getCheckboxRow.bind(this);
         this.handlerSetState = this.handlerSetState.bind(this);
+        this.handleReject = this.handleReject.bind(this);
     }
 
-    handleEdit(props) {
-        // this function is just for sample checking of Level2_3 approve rejection
-        // console.log("editing...................", props.val)
-        // console.log(this.state.rows)
+    handleApprove = async (clickedStatus,orderId,level) => {
+        if(clickedStatus!=-1){
+            console.log("approving.... orderId : ",orderId)
+            console.log("approved by : ", level)
+            await axios.get('http://localhost:8080/1729197/approve?orderId=' + orderId + "&Lvl=" + level, {
+            })
+                .then((response) => {
+                    console.log(response)
+                })
+            this.handlerSetState()
+            
+        }
     }
 
+    handleReject = async (clickedStatus,orderId,level) => {
+        if(clickedStatus!=-1){
+            console.log("rejecting.... orderId : ",orderId)
+            console.log("rejected by : ", level)
+            await axios.get('http://localhost:8080/1729197/reject?orderId=' + orderId + "&Lvl=" + level, {
+            })
+                .then((response) => {
+                    console.log(response)
+                })
+            this.handlerSetState()
+            
+        }   
+    }
     // searching functionality below
     handleSearch = async (event) => {
 
@@ -198,7 +210,7 @@ export class Handler extends Component {
                 );
             default:
                 return (
-                    <LvL2_3 main={this} isClicked={clickedStatus} rowData={rowData} />
+                    <LvL2_3 handler={this} isClicked={clickedStatus} rowData={rowData} level={lvl} />
                 );
         }
     }
