@@ -12,7 +12,7 @@ function EditForm(props) {
 
   if (amt <= 10000)
     approvedName = 'David Lee'
-  else if (amt > 10000 && amt < 50000)
+  else if (amt > 10000 && amt <= 50000)
     approvedName = 'Laura Smith'
   else
     approvedName = 'Matthew Vance'

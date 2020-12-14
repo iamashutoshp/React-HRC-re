@@ -61,7 +61,7 @@ export class Handler extends Component {
         console.log(event.target.value)
 
         if (event.target.value.length >= 1) {
-            await axios.get('http://localhost:8080/1729197/search?s=' + event.target.value + "&pNo=" + 1, {
+            await axios.get('http://localhost:8080/1729197/search?s=' + event.target.value + "&pNo=" + 1+ "&LvL="+this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -75,7 +75,7 @@ export class Handler extends Component {
                 })
         }
         else {
-            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1+ "&LvL="+this.state.lvl, {
             })
                 .then((response) => {
                     console.log("----------------------------------", response);
@@ -94,7 +94,7 @@ export class Handler extends Component {
 
 
     handlerSetState = async () => {
-        await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+        await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1 + "&LvL="+this.state.lvl, {
             })
                 .then((response) => {
                     console.log("----------------------------------", response);
@@ -115,7 +115,7 @@ export class Handler extends Component {
     gotoHomePaging = async () => {
         console.log("Ist page of table")
         if (this.state.pageNo > 1) {
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1+ "&LvL="+this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -133,7 +133,7 @@ export class Handler extends Component {
     goOneBackPaging = async () => {
         console.log("one page back", this.state.pageNo)
         if (this.state.pageNo - 1 > 0) {
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo - 1), {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo - 1)+ "&LvL="+this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -152,7 +152,7 @@ export class Handler extends Component {
     goOnNextPaging = async () => {
         console.log("on next page", this.state.pageNo)
         if (this.state.pageNo + 1 <= this.state.totalPage) {
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo + 1), {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo + 1)+ "&LvL="+this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -170,7 +170,7 @@ export class Handler extends Component {
     gotoLastPage = async () => {
         console.log("last page of table")
         if (this.state.pageNo < this.state.totalPage && this.state.totalPage > 1) {
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + this.state.totalPage, {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + this.state.totalPage+ "&LvL="+this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -284,7 +284,7 @@ export class Handler extends Component {
 
     componentDidMount() {
         if (!this.state.seen) {
-            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1, {
+            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1+"&LvL="+this.state.lvl, {
             })
                 .then((response) => {
                     console.log("----------------------------------", response);
