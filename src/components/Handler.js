@@ -40,35 +40,40 @@ export class Handler extends Component {
         this.handleReject = this.handleReject.bind(this);
     }
 
-    handleApprove = async (clickedStatus,orderId,level,approvalStatus) => {
-        if(clickedStatus!=-1 && approvalStatus === "Awaiting Approval"){
-            console.log("approving.... orderId : ",orderId)
+    handleApprove = async (clickedStatus, orderId, level, approvalStatus) => {
+    console.log(approvalStatus)
+    console.log(approvalStatus == "Awaiting approval")
+        if (clickedStatus != -1 && approvalStatus == "Awaiting approval") {
+            console.log("approving.... orderId : ", orderId)
             console.log("approved by : ", level)
             await axios.get('http://localhost:8080/1729197/approve?orderId=' + orderId + "&Lvl=" + level, {
             })
                 .then((response) => {
                     console.log(response)
+                    // approval succes message
                 })
             this.handlerSetState()
         }
         else if (approvalStatus === "Rejected")
-                alert("Sorry this Order is already " + approvalStatus)
+            alert("Sorry this Order is already " + approvalStatus)
+            
     }
 
-    handleReject = async (clickedStatus,orderId,level,approvalStatus) => {
-        if(clickedStatus!=-1 && approvalStatus === "Awaiting Approval"){
-            console.log("rejecting.... orderId : ",orderId)
+    handleReject = async (clickedStatus, orderId, level, approvalStatus) => {
+        if (clickedStatus != -1 && approvalStatus == "Awaiting approval") {
+            console.log("rejecting.... orderId : ", orderId)
             console.log("rejected by : ", level)
             await axios.get('http://localhost:8080/1729197/reject?orderId=' + orderId + "&Lvl=" + level, {
             })
                 .then((response) => {
                     console.log(response)
+                    // rejection success message
                 })
             this.handlerSetState()
-            
-        }   
+
+        }
         else if (approvalStatus === "Approved")
-                alert("Sorry this Order is already " + approvalStatus)
+            alert("Sorry this Order is already " + approvalStatus)
     }
     // searching functionality below
     handleSearch = async (event) => {
@@ -76,7 +81,7 @@ export class Handler extends Component {
         console.log(event.target.value)
 
         if (event.target.value.length >= 1) {
-            await axios.get('http://localhost:8080/1729197/search?s=' + event.target.value + "&pNo=" + 1+ "&LvL="+this.state.lvl, {
+            await axios.get('http://localhost:8080/1729197/search?s=' + event.target.value + "&pNo=" + 1 + "&LvL=" + this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -90,7 +95,7 @@ export class Handler extends Component {
                 })
         }
         else {
-            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1+ "&LvL="+this.state.lvl, {
+            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1 + "&LvL=" + this.state.lvl, {
             })
                 .then((response) => {
                     console.log("----------------------------------", response);
@@ -109,20 +114,20 @@ export class Handler extends Component {
 
 
     handlerSetState = async () => {
-        await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1 + "&LvL="+this.state.lvl, {
-            })
-                .then((response) => {
-                    console.log("----------------------------------", response);
-                    this.setState({
-                        seen: true,
-                        rows: response.data.data,
-                        pageNo: response.data.pageNo,
-                        totalPage: response.data.totalSize,
-                        search: '',
-                        clickedRow: -1
-                    })
+        await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1 + "&LvL=" + this.state.lvl, {
+        })
+            .then((response) => {
+                console.log("----------------------------------", response);
+                this.setState({
+                    seen: true,
+                    rows: response.data.data,
+                    pageNo: response.data.pageNo,
+                    totalPage: response.data.totalSize,
+                    search: '',
+                    clickedRow: -1
                 })
-                console.log("in handlerSetState inside handler.js checking new row recived ",this.state.rows)
+            })
+        console.log("in handlerSetState inside handler.js checking new row recived ", this.state.rows)
 
     }
 
@@ -130,7 +135,7 @@ export class Handler extends Component {
     gotoHomePaging = async () => {
         console.log("Ist page of table")
         if (this.state.pageNo > 1) {
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1+ "&LvL="+this.state.lvl, {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + 1 + "&LvL=" + this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -148,7 +153,7 @@ export class Handler extends Component {
     goOneBackPaging = async () => {
         console.log("one page back", this.state.pageNo)
         if (this.state.pageNo - 1 > 0) {
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo - 1)+ "&LvL="+this.state.lvl, {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo - 1) + "&LvL=" + this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -167,7 +172,7 @@ export class Handler extends Component {
     goOnNextPaging = async () => {
         console.log("on next page", this.state.pageNo)
         if (this.state.pageNo + 1 <= this.state.totalPage) {
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo + 1)+ "&LvL="+this.state.lvl, {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + (this.state.pageNo + 1) + "&LvL=" + this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -185,7 +190,7 @@ export class Handler extends Component {
     gotoLastPage = async () => {
         console.log("last page of table")
         if (this.state.pageNo < this.state.totalPage && this.state.totalPage > 1) {
-            await axios.get('http://localhost:8080/1729197/paging?pNo=' + this.state.totalPage+ "&LvL="+this.state.lvl, {
+            await axios.get('http://localhost:8080/1729197/paging?pNo=' + this.state.totalPage + "&LvL=" + this.state.lvl, {
             })
                 .then((response) => {
                     this.setState({
@@ -270,47 +275,47 @@ export class Handler extends Component {
                             </div>
                         </Grid>
                     </div>
-                </div>
+                </div >
             )
         }
     }
 
 
-    getCheckboxRow = (id, selectedRow) => {
-        console.log("inside checkbox  ")
-        // console.log(id)
-        if (this.state.clickedRow == -1) {
-            this.setState({
-                clickedRow: id,
-                selectedRowData: selectedRow
-            })
-        }
-        else {
-            this.setState({
-                clickedRow: -1,
-                selectedRowData: []
-            })
-        }
-
-
-        // console.log(this.state.clickedRow,this.state.selectedRowData)
+getCheckboxRow = (id, selectedRow) => {
+    console.log("inside checkbox  ")
+    // console.log(id)
+    if (this.state.clickedRow == -1) {
+        this.setState({
+            clickedRow: id,
+            selectedRowData: selectedRow
+        })
+    }
+    else {
+        this.setState({
+            clickedRow: -1,
+            selectedRowData: []
+        })
     }
 
 
-    componentDidMount() {
-        if (!this.state.seen) {
-            axios.get('http://localhost:8080/1729197/paging?pNo=' + 1+"&LvL="+this.state.lvl, {
-            })
-                .then((response) => {
-                    console.log("----------------------------------", response);
-                    this.setState({
-                        seen: true,
-                        rows: response.data.data,
-                        pageNo: response.data.pageNo,
-                        totalPage: response.data.totalSize
-                    })
+    // console.log(this.state.clickedRow,this.state.selectedRowData)
+}
+
+
+componentDidMount() {
+    if (!this.state.seen) {
+        axios.get('http://localhost:8080/1729197/paging?pNo=' + 1 + "&LvL=" + this.state.lvl, {
+        })
+            .then((response) => {
+                console.log("----------------------------------", response);
+                this.setState({
+                    seen: true,
+                    rows: response.data.data,
+                    pageNo: response.data.pageNo,
+                    totalPage: response.data.totalSize
                 })
-        }
+            })
     }
+}
 }
 export default Handler
