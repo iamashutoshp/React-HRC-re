@@ -4,6 +4,8 @@ import axios from 'axios'
 
 import './login.css'
 
+import Grid from "@material-ui/core/Grid"
+import Paper from "@material-ui/core/Paper"
 import Handle from './Handler'
 
 class logIn extends Component {
@@ -43,10 +45,10 @@ class logIn extends Component {
         alert(this.state.userName + "   =>    " + this.state.passWord);
         if (!(this.state.userName === "" || this.state.passWord === "")) {
             await axios.post('http://localhost:8080/1729197/logus?user=' + this.state.userName + '&' + 'password=' + this.state.passWord, {
-             })
+            })
                 .then((response) => {
-                    console.log("in response :",response);
-                    
+                    console.log("in response :", response);
+
                     console.log(response.data);
                     console.log("user status : ", response.data);
                     if (response.data != '') {
@@ -58,7 +60,7 @@ class logIn extends Component {
                             data: response.data
                         })
                         console.log("user data -->:", this.state.data)
-                        alert("Welcome" )
+                        alert("Welcome")
                     }
 
 
@@ -69,7 +71,7 @@ class logIn extends Component {
         }
 
 
-        if (this.state.data==='') {
+        if (this.state.data === '') {
             alert("Invalid Credentials");
         }
 
@@ -83,46 +85,158 @@ class logIn extends Component {
 
         const { userName, passWord, level, data } = this.state
 
+        const paperStyle = {
+            backgroundColor: 'transparent',
+            boxShadow: 'none',
+            padding: "2px"
+        }
         if (!this.state.check) {
             console.log("in render :", this.state.data)
 
-        return (
-            <div className ="asd" >
+            return (
+                <div
+                >
 
-                        <FormGroup id="sda">
-                            <h2 id="signIn"> Sign In</h2>
-                            <TextField id="input-with-icon-grid" label="Username" 
-                            style={{width:200}}
-                            onChange={this.handleUserNameChange}
-                            />
-                            
-                            <br/><br/>
-                            
-                            <TextField  id="input-with-icon-grid" label="Password" 
-                            type="password"
-                            style={{width:200}}
-                            onChange={this.handlePasswordChange}
-                            />
+                    <Grid container
+                        direction="column"
+                        spacing={1}
+                        alignItems="flex-start" >
+                        <div
+                            className="asd"
+                        >
+                            <Grid container >
+                                {/* ------------------------------------------------------------ */}
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                        <p>     </p>
+                                    </Paper>
+                                </Grid>
 
-                        <br/><br/>
-                        <Button variant="contained" color="primary"
-                        style={{width:100}}
-                        onClick={this.handleSubmit}
-                        >Log In</Button>
-                        </FormGroup>
-                    
-                    
-                </div>
-        )
+                                {/* ------------------------------------------------------------------------------ */}
+                                <Grid item xs={12} >
+                                    <Grid container justify>
+                                        <Grid item xs={6}></Grid>
+                                        <Grid item xs={2}><h2 id="signIn">Sign In</h2></Grid>
+                                        <Grid item xs={4}></Grid>
+
+                                        {/* --------------------- */}
+                                        <Grid item xs={6}></Grid>
+                                        <Grid item xs={4}>
+                                            <TextField id="input-with-icon-grid" label="Username"
+                                                style={{ width: 250 }}
+                                                onChange={this.handleUserNameChange}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={2}></Grid>
+                                        {/* ---------------- */}
+                                        <Grid item xs={12} >
+                                            <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                                <p>     </p>
+                                            </Paper>
+                                        </Grid>
+                                        <Grid item xs={12} >
+                                            <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                                <p>     </p>
+                                            </Paper>
+                                        </Grid>
+                                        
+
+                                        {/* ------------- */}
+                                        <Grid item xs={6}></Grid>
+                                        <Grid item xs={4}>
+                                            <TextField id="input-with-icon-grid" label="Password"
+                                                type="password"
+                                                style={{ width: 250 }}
+                                                onChange={this.handlePasswordChange}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={2}></Grid>
+                                        {/* ---------------- */}
+                                        <Grid item xs={12} >
+                                            <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                                <p>     </p>
+                                            </Paper>
+                                        </Grid>
+                                        <Grid item xs={12} >
+                                            <Paper xs={12} style={{ backgroundColor: "transparent", boxShadow: "none" }}>
+                                                <p>     </p>
+                                            </Paper>
+                                        </Grid>
+                                        {/* --------------- */}
+
+                                        <Grid item xs={6}></Grid>
+                                        <Grid item xs={2}>
+                                            <Button variant="contained" color="primary"
+                                                style={{ width: 100,
+                                                    backgroundColor: "#abaaa6",
+                                                }}
+                                                onClick={this.handleSubmit}
+                                            >Log In</Button>
+                                        </Grid>
+                                        <Grid item xs={4}></Grid>
+                                        {/* ----------------- */}
+
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                </div >
+            )
         }
-        else if((this.state.data === "Level 1") || (this.state.data === "Level 2") || (this.state.data === "Level 3") ) {
+        else if ((this.state.data === "Level 1") || (this.state.data === "Level 2") || (this.state.data === "Level 3")) {
             return (
                 <div>
-                    <Handle lvl={this.state.data}/>
+                    <Handle lvl={this.state.data} />
                 </div>
             )
         }
-        else  {
+        else {
             return (
                 <div>
                     Invalid Credentials
