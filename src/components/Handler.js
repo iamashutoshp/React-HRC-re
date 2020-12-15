@@ -40,8 +40,8 @@ export class Handler extends Component {
         this.handleReject = this.handleReject.bind(this);
     }
 
-    handleApprove = async (clickedStatus,orderId,level) => {
-        if(clickedStatus!=-1){
+    handleApprove = async (clickedStatus,orderId,level,approvalStatus) => {
+        if(clickedStatus!=-1 && approvalStatus === "Awaiting Approval"){
             console.log("approving.... orderId : ",orderId)
             console.log("approved by : ", level)
             await axios.get('http://localhost:8080/1729197/approve?orderId=' + orderId + "&Lvl=" + level, {
@@ -50,12 +50,13 @@ export class Handler extends Component {
                     console.log(response)
                 })
             this.handlerSetState()
-            
         }
+        else if (approvalStatus === "Rejected")
+                alert("Sorry this Order is already " + approvalStatus)
     }
 
-    handleReject = async (clickedStatus,orderId,level) => {
-        if(clickedStatus!=-1){
+    handleReject = async (clickedStatus,orderId,level,approvalStatus) => {
+        if(clickedStatus!=-1 && approvalStatus === "Awaiting Approval"){
             console.log("rejecting.... orderId : ",orderId)
             console.log("rejected by : ", level)
             await axios.get('http://localhost:8080/1729197/reject?orderId=' + orderId + "&Lvl=" + level, {
@@ -66,6 +67,8 @@ export class Handler extends Component {
             this.handlerSetState()
             
         }   
+        else if (approvalStatus === "Approved")
+                alert("Sorry this Order is already " + approvalStatus)
     }
     // searching functionality below
     handleSearch = async (event) => {

@@ -56,6 +56,7 @@ export default function LvL1(props) {
 
   const orderId = props.rowData.Order_Id
   const level = props.level
+  const approvalStatus = props.rowData.Approval_status
 
   const val = ["hii", "hello", "bye"]
   return (
@@ -77,14 +78,14 @@ export default function LvL1(props) {
           <ColorButton xs={1}
           // yha par nya function bana kar bas row id and data ko as a props pass kar do fir us function m level k hisab se
           // approval ya rejection k lia post request bhej do
-            onClick={() => props.handler.handleApprove(props.isClicked,orderId,level)}
+            onClick={() => props.handler.handleApprove(props.isClicked,orderId,level,approvalStatus)}
           >
             Approve
             </ColorButton>
         </Grid>
         <Grid item xs={1} sm={1}>
           <ColorButton xs={1}
-            onClick={() => props.handler.handleReject(props.isClicked,orderId,level)}
+            onClick={() => props.handler.handleReject(props.isClicked,orderId,level,approvalStatus)}
           >
             Reject
             </ColorButton>
