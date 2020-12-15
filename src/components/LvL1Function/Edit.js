@@ -21,7 +21,8 @@ export default class EDIT extends React.Component {
       notes: '',
       approved_By: '',
 
-      rowData: this.props.row[1]
+      rowData: this.props.row[1],
+      initialAmount : this.props.row[1].Order_amount
     };
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -80,6 +81,7 @@ export default class EDIT extends React.Component {
       }
 
       // making post request for Addform verification
+      if(this.state.initialAmount != this.state.order_Amount){
       const qs = require('querystring')
       
       const config = {
@@ -87,8 +89,7 @@ export default class EDIT extends React.Component {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }
-      let res=""
-      let status = false
+
       await axios.post('http://localhost:8080/1729197/edit',
       qs.stringify(send), config)
       .then((response) => {
@@ -99,8 +100,8 @@ export default class EDIT extends React.Component {
       }, (error) => {
         console.log(error);
       });
-
       console.log(this.state)
+    }
       this.handleClose()
   }
 
