@@ -18,14 +18,13 @@ const change = (props, id, row) => {
 function MyTable(props) {
     return (
         <div>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} >
                 <Table
                     aria-label="simple table">
                     <TableHead style={{
-                        backgroundColor: "#d4b0f5"
-                    }}>
-                        <TableRow>
-                            <TableCell padding="checkbox">
+                        backgroundColor: "#d4b0f5"}}>
+                        <TableRow >
+                            <TableCell padding="checkbox" >
                                 {/* for check box header */}
                             </TableCell>
                             <TableCell><b>Order Date</b></TableCell>
@@ -43,14 +42,15 @@ function MyTable(props) {
 
                             <TableRow key={row.id}
                                 style={
-                                    
                                     !(props.handler.state.clickedRow == row.id)?
-                                    (row.id % 2 ? { background: "#e6f3ff" } : { background: "#f2f2f2" }):
+                                    (row.id % 2 ? { background: "#e6f3ff" } : { background: "#f2f2f2"}):
                                     { background: "#a4e1eb" }
                                 }>
-
-                                <TableCell padding="checkbox">
+                                
+                                <TableCell 
+                                padding="checkbox">
                                     <Checkbox
+                                        size="small"
                                         onClick={() => change(props.handler, row.id,row)}
                                         checked={props.handler.state.clickedRow == row.id ? true : false} />
                                         

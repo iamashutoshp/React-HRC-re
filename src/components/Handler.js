@@ -80,7 +80,7 @@ export class Handler extends Component {
 
         console.log(event.target.value)
 
-        if (event.target.value.length >= 1) {
+        if (event.target.value.length >= 3) {
             await axios.get('http://localhost:8080/1729197/search?s=' + event.target.value + "&pNo=" + 1 + "&LvL=" + this.state.lvl, {
             })
                 .then((response) => {
