@@ -42,16 +42,18 @@ class logIn extends Component {
 
     handleSubmit = async (event) => {
 
-        alert(this.state.userName + "   =>    " + this.state.passWord);
+        // alert(this.state.userName + "   =>    " + this.state.passWord);
         if (!(this.state.userName === "" || this.state.passWord === "")) {
             await axios.post('http://localhost:8080/1729197/logus?user=' + this.state.userName + '&' + 'password=' + this.state.passWord, {
             })
                 .then((response) => {
                     console.log("in response :", response);
 
+                    
                     console.log(response.data);
                     console.log("user status : ", response.data);
                     if (response.data != '') {
+                        alert("Welcome : "+this.state.userName+"\nYour level is : "+response.data)
                         this.setState({
                             userName: '',
                             passWord: '',
@@ -59,8 +61,7 @@ class logIn extends Component {
                             check: true,
                             data: response.data
                         })
-                        console.log("user data -->:", this.state.data)
-                        alert("Welcome")
+                        
                     }
 
 
@@ -168,7 +169,7 @@ class logIn extends Component {
                                         <Grid item xs={6}></Grid>
                                         <Grid item xs={4}>
                                             <TextField id="input-with-icon-grid" label="Username"
-                                                style={{ width: 250 }}
+                                                style={{ width: "65%" }}
                                                 onChange={this.handleUserNameChange}
                                             />
                                         </Grid>
@@ -191,7 +192,7 @@ class logIn extends Component {
                                         <Grid item xs={4}>
                                             <TextField id="input-with-icon-grid" label="Password"
                                                 type="password"
-                                                style={{ width: 250 }}
+                                                style={{ width: "65%" }}
                                                 onChange={this.handlePasswordChange}
                                             />
                                         </Grid>

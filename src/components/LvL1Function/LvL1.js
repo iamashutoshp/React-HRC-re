@@ -78,7 +78,7 @@ export default function LvL1(props) {
         }}
       >
         {/* goto ADD.js file in handle level1 */}
-        <Grid item xs={1} sm={1}>
+        <Grid item xs={2} sm={1}>
           <ADD handlerFunction={props.main}/>
         </Grid>
         <Grid item xs={1} sm={1}>
